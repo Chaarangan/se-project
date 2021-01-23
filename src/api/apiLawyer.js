@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const auth = require("../services/authService");
 
 const {
     getLaws,
@@ -15,13 +16,13 @@ router.get("/laws", getLaws, (req, res, next) => {
 router.get("/laws/:id", getLawById, (req, res, next) => {
     res.json({ foundLaw: req.foundLaw });
 });
-router.post("/laws", createLaw, (req, res, next) => {
+router.post("/laws", auth.isLawyerLoggedIn , createLaw, (req, res, next) => {
     res.json({ msg: "Added law" });
 });
-router.put("/laws/:id", updateLaw, (req, res, next) => {
+router.put("/laws/:id", auth.isLawyerLoggedIn, updateLaw, (req, res, next) => {
     res.json({ msg: "Edited law" });
 });
-router.delete("/laws/:id", deleteLaw, (req, res, next) => {
+router.delete("/laws/:id", auth.isLawyerLoggedIn, deleteLaw, (req, res, next) => {
     res.json({ msg: "Deleted law" });
 });
 // ========= laws is ok ======= //

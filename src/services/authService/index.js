@@ -118,6 +118,37 @@ const logout = async (req, res, next) => {
 };
 
 
+const isPoliceLoggedIn = (req,res,next)=>{
+  if (req.session.level == "2") {
+    next();
+  } else {
+    res.status(401).json({message:"Only loggedin Police officers are allowed"});
+  }
+};
+
+const isLoggedIn = (req,res,next)=>{
+  if (req.session.level) {
+    next();
+  } else {
+    res.status(401).json({message:"Please login first"});
+  }
+};
+
+const isLawyerLoggedIn = (req,res,next)=>{
+    if (req.session.level == "1") {
+      next();
+    } else {
+      res.status(401).json({message:"Only loggedin Lawyers are allowed"});
+    }
+};
+
+const isPeopleLoggedIn = (req,res,next)=>{
+  if (req.session.level == "0") {
+    next();
+  } else {
+    res.status(401).json({message:"Only loggedin People are allowed"});
+  }
+};
 
 
-module.exports = { login, logout, createAccount };
+module.exports = { login, logout, createAccount, isLoggedIn, isLawyerLoggedIn, isPoliceLoggedIn, isPeopleLoggedIn };

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const user = require("../models/userModel");
 const bcrypt = require("bcrypt");
+const auth = require("../services/authService");
 
 const {
     getArticles,
@@ -27,7 +28,7 @@ router.post("/login", login, async(req, res) => {
 router.post('/register', createAccount, async(req, res) => {
     res.json({ msg : "Success" });
 });
-router.get('/logout', logout, async(req, res) => {
+router.get('/logout', auth.isLoggedIn, logout, async(req, res) => {
     res.json({ msg : "Success" });
 });
 // ========= user is ok ======= //
@@ -47,6 +48,12 @@ router.get("/suspects", getSuspects, (req, res, next) => {
 });
 router.get("/suspects/:id", getSuspectById, (req, res, next) => {
     res.json({ foundSuspect: req.foundSuspect });
+});
+router.get("/wanteds", getWanteds, (req, res, next) => {
+    res.json({ wanteds: req.wanteds });
+});
+router.get("/wanteds/:id", getWantedById, (req, res, next) => {
+    res.json({ foundWanted: req.foundWanted });
 });
 router.get("/emergency", getEmergency, (req, res, next) => {
     res.send(req.arr);
