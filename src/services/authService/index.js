@@ -1,6 +1,6 @@
 const sequelize = require("../../helpers/sequelizer");
-const ApiError =require('../../helpers/ApiError');
-const bcrypt=require("bcrypt");
+const ApiError = require('../../helpers/ApiError');
+const bcrypt = require("bcrypt");
 
 const user = require("../../models/userModel");
 
@@ -17,68 +17,56 @@ const user = require("../../models/userModel");
 const login = async (req, res) => {
   // login logic here
   try {
-    const {email, password } = req.body;
-    if( !email || !password ){
-        return res.status(400).json( {
-           status:"error",
-            error: 'Please provie a username and password'
-        })
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({
+        status: "error",
+        error: 'Please provie a username and password'
+      })
     }
     else {
-         await user.findOne({where:{email:email}}).then(
-           async (result)=>{
-            console.log(result);
-            
-          
-              
-            await bcrypt.compare(password,result.password).then(
-                 function(result1){
-                   if (result1){
-                    req.session.id = result.id;
-                    req.session.level = result.level;
-                    res.status(200).json({
-                      status:"success",
-                      message:"Logged in succesfully"
-                    });
-                   }else{
-                    res.status(401).json({
-                      status:"error",
-                      message: 'password does not match!'
-                  });
-                   }
-                 }
-               )
-               
-                
-            
-                
-            
-                   
-                
-            })
+      await user.findOne({ where: {email:  email}}).then(
+        async (foundUser) => {
+          if (!foundUser) {
+            return res.status(404).json({ emailnotfound: "Email not found" });
           }
-        
+          else{    
+            await bcrypt.compare(password, foundUser.password).then(result1 => {
+                if (result1) {
+                  req.session.id = foundUser.id;
+                  req.session.level = foundUser.level;
+                  res.status(200).json({
+                    status: "success",
+                    message: "Logged in succesfully"
+                  });
+                } else {
+                  res.status(401).json({
+                    status: "error",
+                    message: 'password does not match!'
+                  });
+                }
+              }
+            )
+            }
+        })
     }
-          
-  
-
- catch (error) {
+  }
+  catch (error) {
     console.log(error);
-}
+  }
 };
 
 const logout = async (req, res, next) => {
   // logout logic here
-        req.session.user_id = null;
-        req.session.first_name=null;
-        req.session.level=null;
-       // res.redirect();
-        next();
-       
+  req.session.user_id = null;
+  req.session.first_name = null;
+  req.session.level = null;
+  // res.redirect();
+  next();
 };
 
 
 
 
 
-module.exports = { login,logout };
+module.exports = { login, logout };

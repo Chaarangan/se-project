@@ -1,6 +1,4 @@
 const router = require("express").Router();
-const { getSuspects, getSuspectById } = require("../services/suspect_service");
-const auth = require("../services/authService");
 const user = require("../models/userModel");
 const bcrypt = require("bcrypt");
 
@@ -15,10 +13,16 @@ const {
     getSuspects,
     getSuspectById
 } = require("../services/suspect_service");
+const {
+    login, 
+    logout
+} = require("../services/authService");
 
 
 // ========= user is ok ======= //
-router.post("/login", auth.login);
+router.post("/login", login, async(req, res) => {
+    res.json("OK");
+});
 
 router.post('/register', async(req, res) => {
 
@@ -87,7 +91,6 @@ router.post('/register', async(req, res) => {
 router.get("/", getArticles, (req, res, next) => {
     res.send(req.arr);
 });
-
 router.get("/laws", getLaws, (req, res, next) => {
     res.json({ laws: req.laws });
 });
