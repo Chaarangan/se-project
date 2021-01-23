@@ -88,7 +88,7 @@ router.get("/laws", getLaws, (req, res, next) => {
     res.json({ laws: req.laws });
 });
 router.get("/laws/:id", getLawById, (req, res, next) => {
-    res.json({ lawById: req.lawId });
+    res.json({ foundLaw: req.foundLaw });
 });
 router.get("/suspects", getSuspects, (req, res, next) => {
     res.json({ Allsuspects: req.suspects });

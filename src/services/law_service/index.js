@@ -33,25 +33,25 @@ const getLawById = async(req, res, next) => {
     } catch (e) {
         next(ApiError.badRequest());
     }
-
 };
+
 const createLaw = async(req, res, next) => {
     // create a new law
     try {
         const num = req.body.law_number,
-            law = req.body.law_notes,
+        law_notes = req.body.law_notes,
             lawyer = req.body.lawyer_id;
 
-
-        const newLaw = await law.create({
-            law_number: num,
-            law_notes: law,
-            lawyer_id: lawyer
-        });
+            const newLaw = await law.create({
+                law_number: num,
+                law_notes: law_notes,
+                lawyer_id: lawyer
+            });
         // Create a new law and save to DB
         req.newLaw = newLaw;
         next();
-    } catch (err) {
+    } catch (e) {
+        console.log(e);
         next(ApiError.badRequest())
     }
 };
