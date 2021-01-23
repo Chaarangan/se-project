@@ -16,6 +16,7 @@ const user = sequelize.define(
     nic: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     first_name: {
       type: DataTypes.STRING,
@@ -26,6 +27,7 @@ const user = sequelize.define(
     },
     email: {
       type: DataTypes.STRING,
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,
