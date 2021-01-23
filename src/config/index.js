@@ -13,6 +13,8 @@ const config = {
     db_userName : process.env.DB_USER_NAME,
     db_password : process.env.DB_PASSWORD,
     db_dialect : process.env.DB_DIALECT,
+
+    react_url : process.env.REACT_URL,
 };
 
 module.exports = config;
