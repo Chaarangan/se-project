@@ -11,10 +11,7 @@ const {
     getEmergency
 
 } = require("../services/law_service");
-const {
-    getSuspects,
-    getSuspectById
-} = require("../services/suspect_service");
+
 
 
 // ========= user is ok ======= //

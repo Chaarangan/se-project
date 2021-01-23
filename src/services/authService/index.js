@@ -27,29 +27,33 @@ const login = async (req, res) => {
     else {
          await user.findOne({where:{email:email}}).then(
            async (result)=>{
-            console.log(result);
+           
             
           
-              
+           if(result!=null){
             await bcrypt.compare(password,result.password).then(
-                 function(result1){
-                   if (result1){
-                    req.session.id = result.id;
-                    req.session.level = result.level;
-                    res.status(200).json({
-                      status:"success",
-                      message:"Logged in succesfully"
-                    });
-                   }else{
-                    res.status(401).json({
-                      status:"error",
-                      message: 'password does not match!'
-                  });
-                   }
-                 }
-               )
-               
-                
+              function(result1){
+                if (result1){
+                 req.session.id = result.id;
+                 req.session.level = result.level;
+                 res.status(200).json({
+                   status:"success",
+                   message:"Logged in succesfully"
+                 });
+                }else{
+                 res.status(401).json({
+                   status:"error",
+                   message: 'password does not match!'
+               });
+                }
+              }
+            )
+            
+             
+           }else{
+             res.status(401).json({error:"Can't find such account"})
+           }
+            
             
                 
             
@@ -78,7 +82,33 @@ const logout = async (req, res, next) => {
 };
 
 
+const isPoliceLoggedIn = (req,res,next)=>{
+  if (req.session.level == "2") {
+    next();
+  } else {
+    res.status(401).json({message:"Only Police officers are allowed"});
+  }
+
+  
+};
+
+const isLoggedIn = (req,res,next)=>{
+  if (req.session.level ) {
+    next();
+  } else {
+    res.status(401).json({message:"Only Commmon people are allowed"});
+  }
+};
+
+const isLawyerLoggedIn = (req,res,next)=>{
+    if (req.session.level == "1") {
+      next();
+    } else {
+      res.status(401).json({message:"Only Lawyers are allowed"});
+    }
+  };
 
 
 
-module.exports = { login,logout };
+
+module.exports = { login,logout,isPoliceLoggedIn,isLawyerLoggedIn,isLoggedIn };
