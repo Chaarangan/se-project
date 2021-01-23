@@ -21,42 +21,48 @@ const login = async (req, res) => {
     if( !email || !password ){
         return res.status(400).json( {
            status:"error",
-            error: 'Please provie an username and password'
+            error: 'Please provie a username and password'
         })
     }
-    else{
-        const foundUser= await user.findAll({where:{email:email}}, async (error, result)=>{
-            if(error) console.log('error', error);
+    else {
+         await user.findOne({where:{email:email}}).then(
+           async (result)=>{
+            console.log(result);
             
-            else{ 
+          
               
-              if(!result || !(await bcrypt.compare(password, foundUser.password) ) ){
-                //console.log(result);
-                res.status(401).json({
-                  status:"error",
-                  message: 'email or password incorrect!'
-              });
-            
-                
-              if(result.length > 0 ){
-                    req.session.id = foundUser.id;
-                    req.session.level = foundUser.level;
+            await bcrypt.compare(password,result.password).then(
+                 function(result1){
+                   if (result1){
+                    req.session.id = result.id;
+                    req.session.level = result.level;
                     res.status(200).json({
                       status:"success",
                       message:"Logged in succesfully"
                     });
-                }else{
-                    res.status(400).json( {
-                        error: 'Cannot find the account'
-                    })
-                }
-            }
+                   }else{
+                    res.status(401).json({
+                      status:"error",
+                      message: 'password does not match!'
+                  });
+                   }
+                 }
+               )
+               
+                
+            
+                
+            
+                   
+                
+            })
           }
         
-    })
-  }
+    }
+          
+  
 
-} catch (error) {
+ catch (error) {
     console.log(error);
 }
 };
@@ -70,6 +76,7 @@ const logout = async (req, res, next) => {
         next();
        
 };
+
 
 
 
