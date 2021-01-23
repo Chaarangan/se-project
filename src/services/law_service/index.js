@@ -23,12 +23,12 @@ const getLaws = async(req, res, next) => {
 const getLawById = async(req, res, next) => {
     // logic to get law by id
     try {
-        const lawId = await law.findAll({
+        const foundLaw = await law.findAll({
             where: {
                 id: req.params.id
             }
         });
-        req.lawId = lawId;
+        req.foundLaw = foundLaw;
         next();
     } catch (e) {
         next(ApiError.badRequest());
@@ -38,18 +38,15 @@ const getLawById = async(req, res, next) => {
 const createLaw = async(req, res, next) => {
     // create a new law
     try {
-        const id = req.body.id,
-            num = req.body.number,
+        const num = req.body.number,
             law = req.body.law,
-            lawyer = req.user.id;
+            lawyer = req.body.lawyer_id;
 
 
         const newLaw = await law.create({
-            id: id,
             law_number: num,
             law_notes: law,
             lawyer_id: lawyer
-
         });
         // Create a new law and save to DB
         req.newLaw = newLaw;
@@ -57,20 +54,18 @@ const createLaw = async(req, res, next) => {
     } catch (err) {
         next(ApiError.badRequest())
     }
-
-
 };
+
 const updateLaw = async(req, res, next) => {
     // update law
     try {
-        const updatedLaw = await law.update({ law_number: req.body.law_number, law_notes: req.body.law_notes }, {
+        const updatedLaw = await law.update({ law_number: req.body.law_number, law_notes: req.body.law_notes, lawyer_id: req.body.lawyer_id }, {
             where: {
                 id: req.params.id
             }
         });
         req.updatedLaw = updatedLaw;
         next();
-
     } catch (e) {
         next(ApiError.badRequest());
     }
@@ -85,11 +80,11 @@ const deleteLaw = async(req, res, next) => {
             }
         });
         next();
-
     } catch (e) {
         next(ApiError.badRequest());
     }
 };
+
 const getEmergency = async(req, res, next) => {
     // get emergency numbers
 

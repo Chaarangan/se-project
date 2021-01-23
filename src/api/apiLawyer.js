@@ -9,31 +9,19 @@ const {
 } = require("../services/law_service");
 
 router.get("/laws", getLaws, (req, res, next) => {
-    res.json({ AllLaws: req.laws });
+    res.json({ laws: req.laws });
 });
 router.get("/laws/:id", getLawById, (req, res, next) => {
-    res.json({ lawById: req.lawId });
+    res.json({ foundLaw: req.foundLaw });
 });
 router.post("/laws", createLaw, (req, res, next) => {
-    if (err) {
-        return;
-    } else {
-        res.json({ msg: "Added law" });
-    }
+    res.json({ msg: "Added law" });
 });
 router.put("/laws/:id", updateLaw, (req, res, next) => {
-    if (err) {
-        return;
-    } else {
-        res.json({ msg: "Edited law" });
-    }
+    res.json({ msg: "Edited law" });
 });
 router.delete("/laws/:id", deleteLaw, (req, res, next) => {
-    if (err) {
-        return;
-    } else {
-        res.json({ msg: "Deleted law" });
-    }
+    res.json({ msg: "Deleted law" });
 });
 
 module.exports = router;

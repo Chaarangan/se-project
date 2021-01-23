@@ -24,7 +24,7 @@ const getComplaintById = async(req, res, next) => {
         req.foundComplaint = foundComplaint;
         next();
     } catch (e) {
-        next(ApiError.badrequest());
+        next(ApiError.badRequest());
     }
 };
 
@@ -70,7 +70,7 @@ const updateComplaint = async(req, res, next) => {
         });
         next();
     } catch (e) {
-        next(ApiError.badrequest())
+        next(ApiError.badRequest())
     }
 };
 

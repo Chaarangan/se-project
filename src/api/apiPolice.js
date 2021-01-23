@@ -90,7 +90,7 @@ router.put("/complaints/:id", updateComplaint, (req, res, next) => {
     res.json({ msg: "edited complaint" });
 });
 router.delete("/complaints/:id", deleteComplaint, (req, res, next) => {
-    res.json({ msg: "Deleted wanted" });
+    res.json({ msg: "Deleted Complaints" });
 });
 // ========= complaints is ok ======= //
 
