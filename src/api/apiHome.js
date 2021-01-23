@@ -11,6 +11,10 @@ const {
     getEmergency
 
 } = require("../services/law_service");
+const {
+    getSuspects,
+    getSuspectById
+} = require("../services/suspect_service");
 
 
 // ========= user is ok ======= //
@@ -91,10 +95,10 @@ router.get("/laws/:id", getLawById, (req, res, next) => {
     res.json({ foundLaw: req.foundLaw });
 });
 router.get("/suspects", getSuspects, (req, res, next) => {
-    res.json({ Allsuspects: req.suspects });
+    res.json({ suspects: req.suspects });
 });
 router.get("/suspects/:id", getSuspectById, (req, res, next) => {
-    res.json({ suspectById: req.suspectId });
+    res.json({ foundSuspect: req.foundSuspect });
 });
 router.get("/emergency", getEmergency, (req, res, next) => {
     res.send(req.arr);
