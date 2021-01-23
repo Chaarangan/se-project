@@ -77,7 +77,7 @@ const createUser = async (req, res, next) => {
             }
           }
           else {
-            return res.status(404).json({ emailnotfound: "NIC found" });
+            return res.status(404).json({ msg: "NIC found" });
           }
         });
     } catch (e) {
