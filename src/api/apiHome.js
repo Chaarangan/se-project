@@ -7,7 +7,6 @@ const {
     getLaws,
     getLawById,
     getEmergency
-
 } = require("../services/law_service");
 const {
     getSuspects,
