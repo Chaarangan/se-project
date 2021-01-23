@@ -25,7 +25,7 @@ const createAccount = async (req, res, next) => {
               email = req.body.email,
               password = req.body.password,
               mob = req.body.mobile,
-              level = req.body.level;
+              level = 0;
 
             await bcrypt.genSalt(10, (err, salt) => {
               bcrypt.hash(password, salt, (err, hash) => {
