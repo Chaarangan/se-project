@@ -38,13 +38,15 @@ const getLawById = async(req, res, next) => {
 const createLaw = async(req, res, next) => {
     // create a new law
     try {
-        const num = req.body.law_number,
-        law_notes = req.body.law_notes,
-            lawyer = req.body.lawyer_id;
-
+        author = req.body.author,
+        title = req.body.title,
+        article = req.body.article,
+        lawyer = req.body.lawyer_id;
+    
             const newLaw = await law.create({
-                law_number: num,
-                law_notes: law_notes,
+                author: author,
+                title : title,
+                article: article,
                 lawyer_id: lawyer
             });
         // Create a new law and save to DB
@@ -59,7 +61,7 @@ const createLaw = async(req, res, next) => {
 const updateLaw = async(req, res, next) => {
     // update law
     try {
-        const updatedLaw = await law.update({ law_number: req.body.law_number, law_notes: req.body.law_notes, lawyer_id: req.body.lawyer_id }, {
+        const updatedLaw = await law.update({ author: req.body.author, title: req.body.title, article: req.body.article, lawyer_id: req.body.lawyer_id }, {
             where: {
                 id: req.params.id
             }

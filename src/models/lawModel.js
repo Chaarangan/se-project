@@ -10,11 +10,15 @@ const law = sequelize.define(
       primaryKey: true,
       autoIncrement:true
     },
-    law_number: {
+    author: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    law_notes: {
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    article: {
       type: DataTypes.STRING,
       allowNull: false,
     },
