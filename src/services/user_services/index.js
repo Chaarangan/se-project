@@ -32,7 +32,7 @@ const getUserById = async (req, res, next) => {
 };
 
 
-const createAccount = async (req, res, next) => {
+const createUser = async (req, res, next) => {
     // sequalize logic goes here
   
     try {
