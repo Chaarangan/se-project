@@ -98,8 +98,10 @@ const login = async (req, res) => {
               req.session.id = foundUser.id;
               req.session.level = foundUser.level;
               res.status(200).json({
+                id: foundUser.id,
+                level: foundUser.level,                
                 status: "success",
-                message: "Logged in succesfully"
+                message: "Loggedin Succesfully"
               });
             }
           }
@@ -113,6 +115,8 @@ const login = async (req, res) => {
 
 const logout = async (req, res, next) => {
   // logout logic here
+  req.session.id = "";
+  req.session.level = "";
   req.session.destroy();
   next();
 };
