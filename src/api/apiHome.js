@@ -1,21 +1,20 @@
 const router = require("express").Router();
 const { getSuspects, getSuspectById } = require("../services/suspect_service");
 const auth = require("../services/authService");
-const {
+const user = require("../models/userModel");
+const bcrypt = require("bcrypt");
 
+const {
     getArticles,
     getLaws,
     getLawById,
     getEmergency
+
 } = require("../services/law_service");
-const user = require("../models/userModel");
-const bcrypt = require("bcrypt");
 
 
+// ========= user is ok ======= //
 router.post("/login", auth.login);
-
-
-
 
 router.post('/register', async(req, res) => {
 
@@ -63,27 +62,20 @@ router.post('/register', async(req, res) => {
             })
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
-                    if (err) throw err;
-                    newUser.password = hash;
-                    newUser
-                        .save()
-                        .then(user => {
-                            res.status(200).json({
+                    if (err){
+                        console.log(err);
+                    }
+                    else{                    
+                        newUser.password = hash;
+                        res.status(200).json({
                                 status: "success",
                                 message: "Successfully added "
-                            });
-
-                            //res.redirect('/users/login');
-                        })
-                        .catch(err => console.log(err));
-                });
+                        });
+                    }                        
+                });                        
             });
-
-
         }
     }
-
-
 });
 
 
@@ -93,19 +85,17 @@ router.get("/", getArticles, (req, res, next) => {
 });
 
 router.get("/laws", getLaws, (req, res, next) => {
-    res.json({ AllLaws: req.laws });
+    res.json({ laws: req.laws });
 });
 router.get("/laws/:id", getLawById, (req, res, next) => {
     res.json({ lawById: req.lawId });
 });
-
 router.get("/suspects", getSuspects, (req, res, next) => {
     res.json({ Allsuspects: req.suspects });
 });
 router.get("/suspects/:id", getSuspectById, (req, res, next) => {
     res.json({ suspectById: req.suspectId });
 });
-
 router.get("/emergency", getEmergency, (req, res, next) => {
     res.send(req.arr);
 });

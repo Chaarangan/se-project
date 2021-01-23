@@ -8,6 +8,7 @@ const {
     deleteLaw,
 } = require("../services/law_service");
 
+// ========= laws is ok ======= //
 router.get("/laws", getLaws, (req, res, next) => {
     res.json({ laws: req.laws });
 });
@@ -23,5 +24,6 @@ router.put("/laws/:id", updateLaw, (req, res, next) => {
 router.delete("/laws/:id", deleteLaw, (req, res, next) => {
     res.json({ msg: "Deleted law" });
 });
+// ========= laws is ok ======= //
 
 module.exports = router;

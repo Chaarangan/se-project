@@ -38,8 +38,8 @@ const getLawById = async(req, res, next) => {
 const createLaw = async(req, res, next) => {
     // create a new law
     try {
-        const num = req.body.number,
-            law = req.body.law,
+        const num = req.body.law_number,
+            law = req.body.law_notes,
             lawyer = req.body.lawyer_id;
 
 
