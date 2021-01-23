@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/kavindasr/se_project.git"
   },
-  "author": "KSR",
+  "author": "Charangan",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kavindasr/se_project/issues"
@@ -33,6 +33,9 @@
     "passport": "^0.4.1",
     "passport-local-sequelize": "^0.9.0",
     "sequelize": "^6.4.0"
+  },
+  "engines": {
+    "node": "14.15.3"
   },
   "devDependencies": {
     "jsdoc": "^3.6.6",
