@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kavindasr/se_project.git"
+    "url": "git+https://github.com/Chaarangan/se-project.git"
   },
   "author": "Charangan",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kavindasr/se_project/issues"
+    "url": "https://github.com/Chaarangan/se_project/issues"
   },
-  "homepage": "https://github.com/kavindasr/se_project#readme",
+  "homepage": "https://github.com/Chaarangan/se_project#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
