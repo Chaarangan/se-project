@@ -25,11 +25,13 @@ const {
 router.post("/login", login, async(req, res) => {
     res.json("OK");
 });
-
 router.post('/register', createAccount, async(req, res) => {
     res.json({ msg : "Success" });
 });
-
+router.get('/logout', logout, async(req, res) => {
+    res.json({ msg : "Success" });
+});
+// ========= user is ok ======= //
 
 
 router.get("/", getArticles, (req, res, next) => {
