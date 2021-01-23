@@ -22,12 +22,15 @@ async function startServer() {
         extended: true
     }));
     app.use(express.json());
+    const cookieParser = require("cookie-parser");
+    app.use(cookieParser());
     var session = require('express-session');
     app.use(require("express-session")({
         secret:"Charangan",
         resave:true,
         saveUninitialized:false
     }));
+
 
     app.listen(config.port, err => {
         if (err) {
