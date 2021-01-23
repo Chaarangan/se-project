@@ -119,7 +119,7 @@ const logout = async (req, res, next) => {
 
 
 const isPoliceLoggedIn = (req,res,next)=>{
-  if (req.session.level == "2") {
+  if (req.session.level == 2) {
     next();
   } else {
     res.status(401).json({message:"Only loggedin Police officers are allowed"});
@@ -135,7 +135,7 @@ const isLoggedIn = (req,res,next)=>{
 };
 
 const isLawyerLoggedIn = (req,res,next)=>{
-    if (req.session.level == "1") {
+    if (req.session.level == 1) {
       next();
     } else {
       res.status(401).json({message:"Only loggedin Lawyers are allowed"});
@@ -143,7 +143,7 @@ const isLawyerLoggedIn = (req,res,next)=>{
 };
 
 const isPeopleLoggedIn = (req,res,next)=>{
-  if (req.session.level == "0") {
+  if (req.session.level == 0) {
     next();
   } else {
     res.status(401).json({message:"Only loggedin People are allowed"});

@@ -10,6 +10,10 @@ const {
     getEmergency
 } = require("../services/law_service");
 const {
+    getWanteds,
+    getWantedById
+} = require("../services/wanted_service");
+const {
     getSuspects,
     getSuspectById
 } = require("../services/suspect_service");

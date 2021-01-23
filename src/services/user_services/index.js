@@ -64,7 +64,7 @@ const createUser = async (req, res, next) => {
                       mobile: mob,
                       level: level,
                       created_on: Date.now(),
-                      status: 0
+                      status: level
                     });
                     req.newUser = newUser;
                     next();

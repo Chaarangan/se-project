@@ -26,7 +26,7 @@ router.put("/complaints/:id", auth.isPeopleLoggedIn, updateComplaint, (req, res,
 // ========= complaints is ok ======= //
 
 
-router.post("/logout", auth.logout, (req, res, next) => {
+router.get("/logout", auth.logout, (req, res, next) => {
     res.json({ msg: "logging out" });
 })
 
