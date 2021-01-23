@@ -1,7 +1,8 @@
 CREATE TABLE `laws` (
   `id` int(11),
-  `number` varchar(64),
-  `law` text,
+  `author` varchar(64),
+  `title` text,
+  `article` text,
   `lawyer` int(11),
   PRIMARY KEY (`id`)
 );
